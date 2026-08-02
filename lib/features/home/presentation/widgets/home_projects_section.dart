@@ -137,9 +137,9 @@ class HomeProjectsSection extends StatelessWidget {
             itemCount: _projects.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              mainAxisSpacing: AppSizes.spacingMd,
-              crossAxisSpacing: AppSizes.spacingXs,
-              childAspectRatio: 0.90,
+              mainAxisSpacing: 12.0,
+              crossAxisSpacing: 10.0,
+              childAspectRatio: 0.85,
             ),
             itemBuilder: (context, i) {
               final project = _projects[i];

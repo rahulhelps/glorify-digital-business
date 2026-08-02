@@ -38,6 +38,8 @@ dependencies:
   package_info_plus: ^9.0.1
   crypto: ^3.0.6
   curved_navigation_bar: ^1.0.6
+  cached_network_image: ^3.4.1
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -55,14 +57,21 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/images/golden_power_logo2.png"
-  adaptive_icon_background: "#000000"
-  adaptive_icon_foreground: "assets/images/golden_power_logo2.png"
-
+  image_path: "assets/images/glorify_logo.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#1976D2"
+  adaptive_icon_foreground: "assets/images/glorify_logo.png"
 
 flutter_native_splash:
-  color: "#097CCB"
-  image: "assets/images/golden_power_logo2.png"
+  color: "#1976D2"
+  image: "assets/images/glorify_logo.png"
+  color_dark: "#0A1A4A"
+  image_dark: "assets/images/glorify_logo.png"
   android_12:
-    color: "#097CCB"
-    image: "assets/images/golden_power_logo2.png"
+    color: "#1976D2"
+    icon_background_color: "#1976D2"
+    image: "assets/images/glorify_logo.png"
+    color_dark: "#0A1A4A"
+    icon_background_color_dark: "#0A1A4A"
+    image_dark: "assets/images/glorify_logo.png"
+  fullscreen: true

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -30,7 +30,7 @@ class TransactionHistoryList extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 40),
               child: Text(
-                "???? ?????????? ???????? ???",
+                "কোনো ট্রানজেকশন হিস্ট্রি নেই",
                 style: TextStyle(color: AppColors.textSecondary),
               ),
             ),
@@ -43,7 +43,7 @@ class TransactionHistoryList extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: AppSizes.spacingMd),
               child: Text(
-                '?????????? ??????',
+                'ট্রানজেকশন হিস্ট্রি',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
@@ -70,8 +70,8 @@ class TransactionHistoryList extends StatelessWidget {
 
                 final color = isInflow ? AppColors.success : AppColors.error;
                 final title = isInflow
-                    ? "??????? ?????????? ${tx['senderName'] ?? ''}"
-                    : "??????? ?????????? ${tx['receiverName'] ?? ''}";
+                    ? "টাকা পেয়েছেন: ${tx['senderName'] ?? ''}"
+                    : "টাকা পাঠিয়েছেন: ${tx['receiverName'] ?? ''}";
 
                 return Container(
                   padding: const EdgeInsets.all(AppSizes.spacingMd),
@@ -126,7 +126,7 @@ class TransactionHistoryList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            '${isInflow ? "+" : "-"}? ${amount.toStringAsFixed(0)}',
+                            '${isInflow ? "+" : "-"}৳ ${amount.toStringAsFixed(0)}',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -134,7 +134,7 @@ class TransactionHistoryList extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Bal: ? ${balance.toStringAsFixed(0)}',
+                            'Bal: ৳ ${balance.toStringAsFixed(0)}',
                             style: const TextStyle(
                               fontSize: 10,
                               color: AppColors.textSecondary,

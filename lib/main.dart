@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:global_earn/core/constants/app_colors.dart';
-import 'package:global_earn/core/constants/app_strings.dart';
 import 'package:global_earn/core/theme/app_theme.dart';
 import 'package:global_earn/core/network/bloc/connectivity_bloc.dart';
 import 'package:global_earn/features/auth/presentation/bloc/auth_bloc.dart';
@@ -146,12 +145,26 @@ final _router = GoRouter(
         },
       ),
 
-      // /course route removed — course feature deleted
         GoRoute(
           path: '/wallet',
           pageBuilder: (context, state) => CustomTransitionPage(
             key: state.pageKey,
             child: const WalletScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+            transitionDuration: const Duration(milliseconds: 150),
+          ),
+        ),
+        GoRoute(
+          path: '/profile',
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: BlocProvider(
+              create: (_) => sl<ProfileBloc>(),
+              child: const ProfileScreen(),
+            ),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
                   return FadeTransition(opacity: animation, child: child);
@@ -181,22 +194,6 @@ final _router = GoRouter(
             child: BlocProvider(
               create: (_) => TransactionsBloc(),
               child: const TransactionsScreen(),
-            ),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-                  return FadeTransition(opacity: animation, child: child);
-                },
-            transitionDuration: const Duration(milliseconds: 150),
-          ),
-        ),
-
-        GoRoute(
-          path: '/profile',
-          pageBuilder: (context, state) => CustomTransitionPage(
-            key: state.pageKey,
-            child: BlocProvider(
-              create: (_) => sl<ProfileBloc>(),
-              child: const ProfileScreen(),
             ),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {

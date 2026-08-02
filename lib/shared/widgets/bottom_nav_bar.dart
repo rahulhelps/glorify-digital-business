@@ -22,7 +22,7 @@
 //
 //   const AppShell({super.key, required this.child});
 //
-//   static const _routes = ['/home', '/profile', '/wallet', '/network'];
+//   static const _routes = ['/home', '/wallet', '/profile', '/network'];
 //
 //   int _indexFor(BuildContext context) {
 //     final loc = GoRouterState.of(context).uri.toString();
@@ -92,12 +92,12 @@
 //
 //   static const _tabs = [
 //     (Icons.home_outlined, Icons.home, 'ড্যাশবোর্ড'),
-//     (Icons.person_outline, Icons.person, 'প্রোফাইল'),
 //     (
-//     Icons.account_balance_wallet_outlined,
-//     Icons.account_balance_wallet,
-//     'ওয়ালেট',
+//       Icons.account_balance_wallet_outlined,
+//       Icons.account_balance_wallet,
+//       'ওয়ালেট',
 //     ),
+//     (Icons.person_outline, Icons.person, 'প্রোফাইল'),
 //     (Icons.group_outlined, Icons.group, 'নেটওয়ার্ক'),
 //   ];
 //
@@ -504,12 +504,12 @@
 //
 //   static const _tabs = [
 //     (Icons.home_outlined, Icons.home, 'ড্যাশবোর্ড'),
-//     (Icons.person_outline, Icons.person, 'প্রোফাইল'),
 //     (
 //       Icons.account_balance_wallet_outlined,
 //       Icons.account_balance_wallet,
 //       'ওয়ালেট',
 //     ),
+//     (Icons.person_outline, Icons.person, 'প্রোফাইল'),
 //     (Icons.group_outlined, Icons.group, 'নেটওয়ার্ক'),
 //   ];
 //
@@ -591,12 +591,12 @@
 //
 //   static const _tabs = [
 //     (Icons.home_outlined, Icons.home, 'ড্যাশবোর্ড'),
-//     (Icons.person_outline, Icons.person, 'প্রোফাইল'),
 //     (
 //       Icons.account_balance_wallet_outlined,
 //       Icons.account_balance_wallet,
 //       'ওয়ালেট',
 //     ),
+//     (Icons.person_outline, Icons.person, 'প্রোফাইল'),
 //     (Icons.group_outlined, Icons.group, 'নেটওয়ার্ক'),
 //   ];
 //
@@ -668,7 +668,6 @@ import 'package:global_earn/core/constants/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:global_earn/core/constants/app_strings.dart';
 import 'package:global_earn/shared/widgets/app_drawer.dart';
-import 'package:quick_payment/components/widgets/static_widgets.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // AppShell
@@ -685,7 +684,7 @@ class AppShell extends StatelessWidget {
 
   const AppShell({super.key, required this.child});
 
-  static const _routes = ['/home', '/profile', '/wallet', '/network'];
+  static const _routes = ['/home', '/wallet', '/profile', '/network'];
 
   int _indexFor(BuildContext context) {
     final loc = GoRouterState.of(context).uri.toString();
@@ -723,9 +722,9 @@ class AppShell extends StatelessWidget {
               Builder(
                 builder: (context) {
                   final topInset = MediaQuery.of(context).padding.top;
-                  // Header height (now includes +15 extra space above the pill)
+                  // Header height with reduced 10px vertical gap above the pill
                   // + 18px breathing gap before the white container.
-                  final overlapTop = topInset + 56 + 15 + 10 + 56 + 40 + 18.0;
+                  final overlapTop = topInset + 20 + 10 + 10 + 56 + 40 + 18.0;
                   return SizedBox(height: overlapTop);
                 },
               ),
@@ -772,12 +771,12 @@ class UnifiedTopHeader extends StatelessWidget {
 
   static const _tabs = [
     (Icons.home_outlined, Icons.home, 'ড্যাশবোর্ড'),
-    (Icons.person_outline, Icons.person, 'প্রোফাইল'),
     (
-    Icons.account_balance_wallet_outlined,
-    Icons.account_balance_wallet,
-    'ওয়ালেট',
+      Icons.account_balance_wallet_outlined,
+      Icons.account_balance_wallet,
+      'ওয়ালেট',
     ),
+    (Icons.person_outline, Icons.person, 'প্রোফাইল'),
     (Icons.group_outlined, Icons.group, 'নেটওয়ার্ক'),
   ];
 
@@ -786,9 +785,9 @@ class UnifiedTopHeader extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
     final topInset = MediaQuery.of(context).padding.top;
-    // +15 for extra space above the nav pill, for visual balance.
+    // Header total height with refined 15px gap above the pill
     // +100 extra height to ensure the gradient extends seamlessly behind the white curved container.
-    final totalHeight = topInset + 56 + 15 + 10 + 56 + 40 + 100.0;
+    final totalHeight = topInset + 56 + 15 + 56 + 40 + 100.0;
 
     return Container(
         height: totalHeight,
@@ -859,8 +858,6 @@ class UnifiedTopHeader extends StatelessWidget {
                   const SizedBox(width: 8),
                 ],
               ),
-              const SizedBox(height: 10),
-              // Extra space ABOVE the nav pill — pushes it away from the title.
               const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -974,12 +971,12 @@ class FloatingTopNavBar extends StatelessWidget {
 
   static const _tabs = [
     (Icons.home_outlined, Icons.home, 'ড্যাশবোর্ড'),
-    (Icons.person_outline, Icons.person, 'প্রোফাইল'),
     (
-    Icons.account_balance_wallet_outlined,
-    Icons.account_balance_wallet,
-    'ওয়ালেট',
+      Icons.account_balance_wallet_outlined,
+      Icons.account_balance_wallet,
+      'ওয়ালেট',
     ),
+    (Icons.person_outline, Icons.person, 'প্রোফাইল'),
     (Icons.group_outlined, Icons.group, 'নেটওয়ার্ক'),
   ];
 
@@ -1061,12 +1058,12 @@ class AppBottomNavBar extends StatefulWidget {
 
   static const _tabs = [
     (Icons.home_outlined, Icons.home, 'ড্যাশবোর্ড'),
-    (Icons.person_outline, Icons.person, 'প্রোফাইল'),
     (
-    Icons.account_balance_wallet_outlined,
-    Icons.account_balance_wallet,
-    'ওয়ালেট',
+      Icons.account_balance_wallet_outlined,
+      Icons.account_balance_wallet,
+      'ওয়ালেট',
     ),
+    (Icons.person_outline, Icons.person, 'প্রোফাইল'),
     (Icons.group_outlined, Icons.group, 'নেটওয়ার্ক'),
   ];
 

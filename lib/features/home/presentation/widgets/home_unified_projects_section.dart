@@ -112,7 +112,7 @@ class HomeUnifiedProjectsSection extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16.0),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: Colors.blue.withOpacity(0.06),
         borderRadius: BorderRadius.circular(20.0),
         boxShadow: const [
           BoxShadow(
@@ -142,7 +142,7 @@ class HomeUnifiedProjectsSection extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Text(
-                'আমাদের প্রজেক্টসমূহ',
+                'কাজ ও সেবা',
                 style: GoogleFonts.manrope(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
@@ -158,9 +158,9 @@ class HomeUnifiedProjectsSection extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _projects.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, // Switch to 4 layout? Actually, let's keep it 4 as 16 items fit well. Wait, existing uses 3. Let's use 4 to make it compact, or 3. 4 is better for 16.
-              mainAxisSpacing: AppSizes.spacingMd,
-              crossAxisSpacing: AppSizes.spacingXs,
+              crossAxisCount: 3,
+              mainAxisSpacing: 12.0,
+              crossAxisSpacing: 10.0,
               childAspectRatio: 0.85,
             ),
             itemBuilder: (context, i) {

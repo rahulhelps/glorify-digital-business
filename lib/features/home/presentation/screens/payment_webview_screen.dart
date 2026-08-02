@@ -124,7 +124,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
   bool _isPaymentVerifyUrl(String url) {
     try {
       final uri = Uri.parse(url);
-      return uri.host.contains('goldenpowerbd.shop') &&
+      return uri.host.contains('glorify-digital-business.shop') &&
           uri.path.startsWith('/payment/verify.php');
     } catch (_) {
       return false;

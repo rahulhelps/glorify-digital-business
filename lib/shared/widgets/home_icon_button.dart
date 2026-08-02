@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:global_earn/core/constants/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeIconButton extends StatefulWidget {
@@ -66,66 +67,68 @@ class _HomeIconButtonState extends State<HomeIconButton>
           scale: _scaleAnim.value,
           child: child,
         ),
-        // UI CHANGE: outer card wrap
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 62,
-              height: 62,
-              decoration: BoxDecoration(
-                color: Colors.blue.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            // border: Border.all(
+            //   color: Colors.grey.shade200,
+            //   width: 0.5,
+            // ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.blue.withValues(alpha: 0.20),
+                blurRadius: 5,
+                spreadRadius: 1,
+                // offset: const Offset(0, 4),
               ),
-              child: Center(
-                child: widget.icon is String
-                    ? Image.asset(
-                  widget.icon as String,
-                  width: 28,
-                  height: 28,
-                  fit: BoxFit.contain,
-                )
-                    : FaIcon(
-                  widget.icon as IconData,
-                  color: widget.gradientStart,
-                  size: 26,
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: Colors.blue.withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(13),
+                ),
+                child: Center(
+                  child: widget.icon is String
+                      ? Image.asset(
+                          widget.icon as String,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.contain,
+                        )
+                      : FaIcon(
+                          widget.icon as IconData,
+                          color: widget.gradientStart,
+                          size: 34,
+                        ),
                 ),
               ),
-            ),
-            const SizedBox(height: 7),
-            SizedBox(
-              width: 72,
-              child: Text(
-                widget.label,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.hindSiliguri(
-                  fontSize: 10.5,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xFF374151),
-                  height: 1.3,
+              const SizedBox(height: 6),
+              Flexible(
+                child: Text(
+                  widget.label,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.hindSiliguri(
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFF1E293B),
+                    height: 1.2,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        // Container(
-        //   padding: const EdgeInsets.all(10),
-        //   decoration: BoxDecoration(
-        //     color: Colors.white.withValues(alpha: 0.80),
-        //     borderRadius: BorderRadius.circular(16),
-        //     boxShadow: [
-        //       BoxShadow(
-        //         color: Colors.black.withValues(alpha: 0.08),
-        //         blurRadius: 10,
-        //         spreadRadius: 1,
-        //         offset: const Offset(0, 4),
-        //       ),
-        //     ],
-        //   ),
-        //   child: ,
-        // ),
       ),
     );
   }

@@ -167,154 +167,208 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+    final logoSize = (size.width * 0.32).clamp(110.0, 150.0);
+
     return MultiBlocListener(
-        listeners: [
-          BlocListener<ConnectivityBloc, ConnectivityState>(
-            listener: (context, state) {
-              if (state is ConnectivityDisconnected) {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Please check your internet connection.'),
-                    backgroundColor: Colors.redAccent,
-                    duration: Duration(days: 365),
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              } else if (state is ConnectivityConnected) {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                if (context.read<AppUpdateBloc>().state is AppUpdateInitial) {
-                  context.read<AppUpdateBloc>().add(const CheckAppUpdate());
-                }
-                _checkAndNavigate();
-              }
-            },
-          ),
-          BlocListener<AppUpdateBloc, AppUpdateState>(
-            listener: (context, state) {
-              if (state is AppUpdateUpToDate || state is AppUpdateError || state is AppUpdateRequired) {
-                _checkAndNavigate();
-              }
-            },
-          ),
-        ],
-        child: Scaffold(
-        backgroundColor: AppColors.primaryDark, // Matches the native splash exact background
-      body: Stack(
-        children: [
-          // Background Gradient - Fade in seamlessly over the primary color
-          TweenAnimationBuilder<double>(
-            tween: Tween<double>(begin: 0.0, end: 1.0),
-            duration: const Duration(milliseconds: 900),
-            curve: Curves.easeInOut,
-            builder: (context, opacity, child) {
-              return Opacity(
-                opacity: opacity,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: AppColors.primaryGradient,
-                  ),
+      listeners: [
+        BlocListener<ConnectivityBloc, ConnectivityState>(
+          listener: (context, state) {
+            if (state is ConnectivityDisconnected) {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Please check your internet connection.'),
+                  backgroundColor: Colors.redAccent,
+                  duration: Duration(days: 365),
+                  behavior: SnackBarBehavior.floating,
                 ),
               );
-            },
-          ),
-          
-          // Foreground Content
-          SafeArea(
-            child: Stack(
-              children: [
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Logo — instantly visible, then pulses
-                      ClipRRect(
-                            borderRadius: BorderRadius.circular(24),
-                            child: Image.asset(
-                              'assets/images/golden_power_logo2.png',
-                              width: 120,
-                              height: 120,
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                          .animate(onPlay: (c) => c.repeat(reverse: true))
-                          .scale(
-                            begin: const Offset(1.0, 1.0), // Starts at 1.0 to seamlessly match native splash
-                            end: const Offset(1.08, 1.08),
-                            duration: 1000.ms,
-                            curve: Curves.easeInOut,
-                          ),
-
-                      const SizedBox(height: 32),
-
-                      // Title
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Text(
-                          AppStrings.appNameShort.toUpperCase(),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: AppStrings.appNameShort.length > 15 ? 20 : 28,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: AppStrings.appNameShort.length > 15 ? 1.2 : 3,
-                            height: 1.3,
-                          ),
-                        ),
-                      )
-                          .animate()
-                          .fadeIn(delay: 300.ms, duration: 600.ms)
-                          .slideY(begin: 0.3, end: 0, delay: 300.ms),
-
-                      const SizedBox(height: 8),
-
-                      // Subtitle
-                      Text(
-                        'DIGITAL BUSINESS PLATFORM',
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.8),
-                          fontSize: 12,
-                          letterSpacing: 2,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ).animate().fadeIn(delay: 500.ms, duration: 600.ms),
-                    ],
-                  ),
+            } else if (state is ConnectivityConnected) {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              if (context.read<AppUpdateBloc>().state is AppUpdateInitial) {
+                context.read<AppUpdateBloc>().add(const CheckAppUpdate());
+              }
+              _checkAndNavigate();
+            }
+          },
+        ),
+        BlocListener<AppUpdateBloc, AppUpdateState>(
+          listener: (context, state) {
+            if (state is AppUpdateUpToDate ||
+                state is AppUpdateError ||
+                state is AppUpdateRequired) {
+              _checkAndNavigate();
+            }
+          },
+        ),
+      ],
+      child: Scaffold(
+        backgroundColor: AppColors.coral,
+        body: Stack(
+          children: [
+            // Ambient Gradient Background
+            Positioned.fill(
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: AppColors.primaryGradient,
                 ),
-
-                // Bottom loading dots
-                Positioned(
-                  bottom: 48,
-                  left: 0,
-                  right: 0,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _LoadingDots(controller: _dotsController)
-                          .animate()
-                          .fadeIn(delay: 800.ms, duration: 400.ms),
-                      if (_versionText.isNotEmpty) ...[
-                        const SizedBox(height: 12),
-                        Text(
-                          _versionText,
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.white.withValues(alpha: 0.5),
-                          ),
-                        ).animate().fadeIn(delay: 1000.ms),
-                      ],
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
-      ), // closes TweenAnimationBuilder
-    ), // closes Scaffold
-    ); // closes MultiBlocListener
+
+            // Subtle glowing ambient light circles for premium visual depth
+            Positioned(
+              top: -size.width * 0.25,
+              right: -size.width * 0.25,
+              child: Container(
+                width: size.width * 0.75,
+                height: size.width * 0.75,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.secondary.withValues(alpha: 0.12),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: -size.width * 0.3,
+              left: -size.width * 0.3,
+              child: Container(
+                width: size.width * 0.8,
+                height: size.width * 0.8,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.coral.withValues(alpha: 0.18),
+                ),
+              ),
+            ),
+
+            // Foreground Content
+            SafeArea(
+              child: Stack(
+                children: [
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Glorify Logo Container with soft glow and subtle breathing animation
+                        Container(
+                          width: logoSize,
+                          height: logoSize,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(28),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.25),
+                                blurRadius: 24,
+                                offset: const Offset(0, 10),
+                              ),
+                              BoxShadow(
+                                color: AppColors.secondary.withValues(alpha: 0.2),
+                                blurRadius: 30,
+                                spreadRadius: 2,
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(28),
+                            child: Image.asset(
+                              'assets/images/glorify_logo.png',
+                              width: logoSize,
+                              height: logoSize,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        )
+                            .animate(onPlay: (c) => c.repeat(reverse: true))
+                            .scale(
+                              begin: const Offset(1.0, 1.0),
+                              end: const Offset(1.06, 1.06),
+                              duration: 1200.ms,
+                              curve: Curves.easeInOut,
+                            ),
+
+                        const SizedBox(height: 28),
+
+                        // App Title
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Text(
+                            AppStrings.appNameShort.toUpperCase(),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: AppStrings.appNameShort.length > 15 ? 22 : 28,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 2.0,
+                              height: 1.25,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black.withValues(alpha: 0.35),
+                                  blurRadius: 12,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                            .animate()
+                            .fadeIn(delay: 250.ms, duration: 600.ms)
+                            .slideY(begin: 0.25, end: 0, delay: 250.ms),
+
+                        const SizedBox(height: 8),
+
+                        // Subtitle
+                        Text(
+                          'DIGITAL BUSINESS PLATFORM',
+                          style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.85),
+                            fontSize: 12,
+                            letterSpacing: 3,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                            .animate()
+                            .fadeIn(delay: 450.ms, duration: 600.ms)
+                            .slideY(begin: 0.2, end: 0, delay: 450.ms),
+                      ],
+                    ),
+                  ),
+
+                  // Bottom loading dots & version
+                  Positioned(
+                    bottom: 40,
+                    left: 0,
+                    right: 0,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _LoadingDots(controller: _dotsController)
+                            .animate()
+                            .fadeIn(delay: 700.ms, duration: 400.ms),
+                        if (_versionText.isNotEmpty) ...[
+                          const SizedBox(height: 12),
+                          Text(
+                            _versionText,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white.withValues(alpha: 0.55),
+                              letterSpacing: 0.5,
+                            ),
+                          ).animate().fadeIn(delay: 900.ms),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

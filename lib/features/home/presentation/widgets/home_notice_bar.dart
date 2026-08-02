@@ -1,21 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:global_earn/core/constants/app_strings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// A notice bar with a fixed left badge and a continuously scrolling marquee
 /// text on the right. Uses a [ScrollController] + [Timer.periodic] loop for
 /// smooth, dependency-free animation. Fully disposes resources on removal.
 class HomeNoticeBar extends StatefulWidget {
-  /// The text that scrolls inside the marquee area.
-  final String text;
+  /// The optional override text that scrolls inside the marquee area.
+  /// If null, it dynamically streams from Firestore (`app_config/home_notice`).
+  final String? text;
 
   /// How fast the text scrolls — pixels per second.
   final double scrollSpeed;
 
   const HomeNoticeBar({
     super.key,
-    this.text =
-        '📢 নোটিশ: আলহামদুলিল্লাহ ${AppStrings.appNameShort}-এ এখন ১৫ + প্রজেক্ট চালু রয়েছে 🔥  কাজ শুরু করুন, ইনকাম বাড়ান  •  ',
+    this.text,
     this.scrollSpeed = 60.0, // pixels per second
   });
 
@@ -113,20 +113,43 @@ class _HomeNoticeBarState extends State<HomeNoticeBar> {
 
           // ── Scrolling Marquee Text ────────────────────────────────────────
           Expanded(
-            child: ClipRect(
-              child: SingleChildScrollView(
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
-                physics: const NeverScrollableScrollPhysics(),
-                child: Row(
-                  children: [
-                    // Duplicate the text so the reset looks seamless
-                    _MarqueeText(text: widget.text),
-                    const SizedBox(width: 40), // gap between repetitions
-                    _MarqueeText(text: widget.text),
-                  ],
-                ),
-              ),
+            child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              stream: FirebaseFirestore.instance
+                  .collection('app_config')
+                  .doc('home_notice')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                const defaultFallbackText =
+                    'Welcome to Glorify Digital Business. Stay connected for updates!';
+                String marqueeText = widget.text ?? defaultFallbackText;
+
+                if (snapshot.hasData &&
+                    snapshot.data != null &&
+                    snapshot.data!.exists) {
+                  final data = snapshot.data!.data();
+                  if (data != null &&
+                      data['text'] != null &&
+                      (data['text'] as String).trim().isNotEmpty) {
+                    marqueeText = (data['text'] as String).trim();
+                  }
+                }
+
+                return ClipRect(
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    physics: const NeverScrollableScrollPhysics(),
+                    child: Row(
+                      children: [
+                        // Duplicate the text so the reset looks seamless
+                        _MarqueeText(text: marqueeText),
+                        const SizedBox(width: 40), // gap between repetitions
+                        _MarqueeText(text: marqueeText),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],

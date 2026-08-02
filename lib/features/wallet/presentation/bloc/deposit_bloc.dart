@@ -64,7 +64,7 @@ class DepositBloc extends Bloc<DepositEvent, DepositState> {
     on<AutoDepositRequested>((event, emit) async {
       emit(AutoDepositLoading());
       try {
-        final url = Uri.parse('https://goldenpowerbd.shop/payment/deposit-create.php');
+        final url = Uri.parse('https://glorify-digital-business.shop/payment/deposit-create.php');
         
         final requestBody = jsonEncode({
           'uid': event.uid,

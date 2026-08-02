@@ -19,6 +19,7 @@ class ProfileEditForm extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final TextEditingController bioController; // Kept bioController to avoid breaking parent state, though unused.
+  final TextEditingController? dobController;
   final DateTime? selectedDateOfBirth;
   final VoidCallback? onTapDateOfBirth;
 
@@ -28,6 +29,7 @@ class ProfileEditForm extends StatelessWidget {
     required this.nameController,
     required this.phoneController,
     required this.bioController,
+    this.dobController,
     this.selectedDateOfBirth,
     this.onTapDateOfBirth,
   });
@@ -37,7 +39,7 @@ class ProfileEditForm extends StatelessWidget {
     final formattedJoinDate = DateFormat('MMM yyyy').format(user.joinedAt);
     final dobFormatted = selectedDateOfBirth != null
         ? DateFormat('dd-MM-yyyy').format(selectedDateOfBirth!)
-        : 'আপনার জন্ম তারিখ নির্বাচন করুন';
+        : '';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -103,11 +105,14 @@ class ProfileEditForm extends StatelessWidget {
         // ── Editable/Placeholder: DOB ─────────────────────────────────────
         GestureDetector(
           onTap: onTapDateOfBirth,
+          behavior: HitTestBehavior.opaque,
           child: AbsorbPointer(
             child: _buildField(
               label: 'জন্ম তারিখ',
-              value: dobFormatted,
-              readOnly: true, // Assuming not currently editable without a date picker
+              controller: dobController,
+              value: dobController == null ? (dobFormatted.isNotEmpty ? dobFormatted : null) : null,
+              hintText: 'আপনার জন্ম তারিখ নির্বাচন করুন',
+              readOnly: true,
             ),
           ),
         ),
@@ -121,6 +126,7 @@ class ProfileEditForm extends StatelessWidget {
     required String label,
     TextEditingController? controller,
     String? value,
+    String? hintText,
     bool readOnly = false,
     int? maxLines = 1,
     String? caption,
@@ -166,7 +172,11 @@ class ProfileEditForm extends StatelessWidget {
                   : AppColors.textPrimary,
             ),
             decoration: InputDecoration(
-              // No prefixIcon
+              hintText: hintText,
+              hintStyle: GoogleFonts.inter(
+                fontSize: 14,
+                color: AppColors.textSecondary.withValues(alpha: 0.6),
+              ),
               border: InputBorder.none,
               isDense: true,
               contentPadding: const EdgeInsets.symmetric(

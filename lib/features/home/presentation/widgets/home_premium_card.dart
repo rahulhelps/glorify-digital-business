@@ -268,7 +268,7 @@ class _HomePremiumCardState extends State<HomePremiumCard> {
                   ),
                   const SizedBox(height: 12),
                   const Text(
-                    'আপনার একাউন্ট এখনো verified নয়। সকল প্রিমিয়াম সেবা ও বোনাস সুবিধা পেতে এখনই ভেরিফাই করুন।',
+                    'আপনার একাউন্টটি ভেরিফাইড নয়। সকল কাজ ও সেবা নিশ্চিত করতে ভেরিফাই করুন।',
                     style: TextStyle(
                       color: Colors.white70,
                       fontSize: 12,

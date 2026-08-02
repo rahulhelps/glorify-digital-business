@@ -42,7 +42,7 @@ class TypingJobRepositoryImpl implements TypingJobRepository {
         final status = data['subscriptionStatus']?.toString().trim() ?? '';
         
         if (status == 'plan_320' || status == '320') {
-          totalVerified += 2; // Premium users give 2 typing job sets
+          totalVerified += 1; // Premium users give 2 typing job sets
         } else {
           // Default fallback for unidentified/legacy cases
           totalVerified += 1;

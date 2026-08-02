@@ -295,7 +295,7 @@ class _AddBalanceScreenState extends State<AddBalanceScreen> {
                             Text(
                               '৳ ${balanceDisplay.toStringAsFixed(2)}',
                               style: const TextStyle(
-                                color: AppColors.textPrimary,
+                                color: Colors.white,
                                 fontSize: 32,
                                 fontWeight: FontWeight.bold,
                               ),

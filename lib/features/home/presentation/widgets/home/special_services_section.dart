@@ -93,9 +93,9 @@ class SpecialServicesSection extends StatelessWidget {
             itemCount: _services.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              mainAxisSpacing: AppSizes.spacingMd,
-              crossAxisSpacing: AppSizes.spacingXs,
-              childAspectRatio: 0.90, // 3-column layout: wider cards, balanced aspect ratio
+              mainAxisSpacing: 12.0,
+              crossAxisSpacing: 10.0,
+              childAspectRatio: 0.85, // 3-column layout: wider cards, balanced aspect ratio
             ),
             itemBuilder: (context, i) {
               // Regular service tiles

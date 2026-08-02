@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:global_earn/core/constants/app_colors.dart';
 import 'package:global_earn/core/constants/app_sizes.dart';
 import 'package:global_earn/features/user/presentation/bloc/user_bloc.dart';
@@ -23,6 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _bioController = TextEditingController();
+  final _dobController = TextEditingController();
   DateTime? _dateOfBirth;
 
   @override
@@ -37,6 +39,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _phoneController.text = userState.user.phone;
           _bioController.text = userState.user.bio ?? '';
           _dateOfBirth = userState.user.dateOfBirth;
+          if (_dateOfBirth != null) {
+            _dobController.text = DateFormat('dd-MM-yyyy').format(_dateOfBirth!);
+          } else {
+            _dobController.text = '';
+          }
         }
       }
     });
@@ -47,6 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _nameController.dispose();
     _phoneController.dispose();
     _bioController.dispose();
+    _dobController.dispose();
     super.dispose();
   }
 
@@ -58,9 +66,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       firstDate: DateTime(1900),
       lastDate: now,
     );
-    if (picked != null && picked != _dateOfBirth) {
+    if (picked != null) {
       setState(() {
         _dateOfBirth = picked;
+        _dobController.text = DateFormat('dd-MM-yyyy').format(picked);
       });
     }
   }
@@ -135,6 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             nameController: _nameController,
                             phoneController: _phoneController,
                             bioController: _bioController,
+                            dobController: _dobController,
                             selectedDateOfBirth: _dateOfBirth,
                             onTapDateOfBirth: _pickDateOfBirth,
                           ),

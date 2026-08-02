@@ -363,29 +363,6 @@ class _TopGenerationsListState extends State<TopGenerationsList> {
               ),
             ],
           ),
-          // Premium status pill
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.green.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.verified_user_rounded, size: 12, color: Color(0xFF2E7D32)),
-                const SizedBox(width: 4),
-                Text(
-                  '${data['verified']?.toInt() ?? 0} Verified',
-                  style: GoogleFonts.inter(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green.shade700,
-                  ),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );

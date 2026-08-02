@@ -146,7 +146,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     try {
       final response = await http
           .post(
-            Uri.parse('https://goldenpowerbd.shop/payment/create.php'),
+            Uri.parse('https://glorify-digital-business.shop/payment/create.php'),
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode({'uid': event.uid, 'plan': event.plan}),
           )

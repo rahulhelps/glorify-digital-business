@@ -80,8 +80,8 @@ class ChangePasswordActionButtons extends StatelessWidget {
                             ]
                           : [
                               Text(
-                                '?????????? ???????? ????',
-                                style: GoogleFonts.manrope(
+                                'পাসওয়ার্ড পরিবর্তন করুন',
+                                style: GoogleFonts.hindSiliguri(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   color: isEnabled
@@ -110,8 +110,8 @@ class ChangePasswordActionButtons extends StatelessWidget {
                 minimumSize: const Size.fromHeight(56),
               ),
               child: Text(
-                '????? ????',
-                style: GoogleFonts.inter(
+                'বাতিল করুন',
+                style: GoogleFonts.hindSiliguri(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: AppColors.textSecondary,

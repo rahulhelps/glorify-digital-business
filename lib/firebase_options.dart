@@ -50,21 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDg23MwwrkXto2fpJnPJlFSFjk8wf8LNoU',
-    appId: '1:233059619721:android:8521112a1f4efb20e24758',
-    messagingSenderId: '233059619721',
-    projectId: 'life-change-78727',
-    databaseURL: 'https://life-change-78727-default-rtdb.firebaseio.com',
-    storageBucket: 'life-change-78727.firebasestorage.app',
+    apiKey: 'AIzaSyAmVZ6vIFkXQHPeihhbqn4uTuH8KBidm-A',
+    appId: '1:281645823313:android:088db494dd6b4a4e4ecf70',
+    messagingSenderId: '281645823313',
+    projectId: 'glorifybussness',
+    storageBucket: 'glorifybussness.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAQBRuXkoNncUVJT0bX35KP3WealXdOu1M',
-    appId: '1:233059619721:ios:9dfb42b96549a9a7e24758',
-    messagingSenderId: '233059619721',
-    projectId: 'life-change-78727',
-    databaseURL: 'https://life-change-78727-default-rtdb.firebaseio.com',
-    storageBucket: 'life-change-78727.firebasestorage.app',
+    apiKey: 'AIzaSyC8DvSBwTZ22dpmStDfVUAEmy8_PE7dtms',
+    appId: '1:281645823313:ios:ac4307e5c3659f234ecf70',
+    messagingSenderId: '281645823313',
+    projectId: 'glorifybussness',
+    storageBucket: 'glorifybussness.firebasestorage.app',
     iosBundleId: 'com.example.lifeChange',
   );
+
 }
