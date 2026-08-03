@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:global_earn/core/constants/app_colors.dart';
 
@@ -7,6 +8,9 @@ abstract class AppTheme {
     return ThemeData(
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.background,
+      appBarTheme: const AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+      ),
       colorScheme: const ColorScheme.dark(
         surface: AppColors.surfaceDim,
         primary: AppColors.coral,

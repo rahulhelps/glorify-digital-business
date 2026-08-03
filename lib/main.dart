@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:global_earn/core/constants/app_colors.dart';
 import 'package:global_earn/core/theme/app_theme.dart';
 import 'package:global_earn/core/network/bloc/connectivity_bloc.dart';
 import 'package:global_earn/features/auth/presentation/bloc/auth_bloc.dart';
@@ -667,6 +666,13 @@ final _router = GoRouter(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+    ),
+  );
   try {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   } catch (e) {
@@ -687,12 +693,6 @@ void main() async {
   await NotificationService.initialize();
   // ─────────────────────────────────────────────────────────────────────────
 
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: AppColors.coral,
-      statusBarIconBrightness: Brightness.light,
-    ),
-  );
   runApp(const LifeChangeApp());
 }
 

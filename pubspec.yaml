@@ -26,7 +26,6 @@ dependencies:
   flutter_image_compress: ^2.4.0
   image_picker: ^1.0.7
   path_provider: ^2.1.5
-  path: ^1.9.1
   url_launcher: ^6.3.2
   quick_payment: ^1.4.0
   flutter_animate: ^4.5.0
@@ -36,7 +35,6 @@ dependencies:
   firebase_messaging: ^16.2.0
   flutter_local_notifications: ^18.0.1
   package_info_plus: ^9.0.1
-  crypto: ^3.0.6
   curved_navigation_bar: ^1.0.6
   cached_network_image: ^3.4.1
   carousel_slider: ^5.0.0

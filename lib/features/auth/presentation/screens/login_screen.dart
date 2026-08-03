@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _submit(BuildContext context) {
     if (_isSubmitting) return; 
-    if (!_formKey.currentState!.validate()) return;
+    if (_formKey.currentState?.validate() != true) return;
     setState(() => _isSubmitting = true);
     context.read<LoginBloc>().add(
       LoginSubmitted(
@@ -196,6 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         backgroundColor: const Color(0xFF0D47A1), // Deep navy background to bleed into the top area
         body: SafeArea(
+          top: false,
           bottom: false,
           child: Column(
             children: [

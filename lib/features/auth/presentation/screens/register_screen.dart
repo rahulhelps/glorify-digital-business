@@ -47,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _submit(BuildContext context) {
     if (_isSubmitting) return; // hard guard against double-tap
-    if (!_formKey.currentState!.validate()) return;
+    if (_formKey.currentState?.validate() != true) return;
     if (!_privacyAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -101,7 +101,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
           context.go('/home');
         } else if (state is RegisterFailure) {
-          setState(() => _isSubmitting = false);
+          if (mounted) {
+            setState(() => _isSubmitting = false);
+          }
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.error),
@@ -117,54 +119,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Scaffold(
         backgroundColor: const Color(0xFF0D47A1), // Deep navy background
         body: SafeArea(
+          top: false,
           bottom: false,
-          child: Column(
+          child: Stack(
             children: [
-              // ── TOP SECTION (Logo) ──
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: Container(
-                    width: 140,
-                    height: 140,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white.withValues(alpha: 0.05),
-                    ),
+              Column(
+                children: [
+                  // ── TOP SECTION (Logo) ──
+                  Expanded(
+                    flex: 2,
                     child: Center(
-                      child: Image.asset(
-                        'assets/icons/login.png',
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.contain,
+                      child: Container(
+                        width: 140,
+                        height: 140,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withValues(alpha: 0.05),
+                        ),
+                        child: Center(
+                          child: Image.asset(
+                            'assets/icons/login.png',
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-              // ── BACK BUTTON ──
-              Positioned(
-                top: 8,
-                left: 8,
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
-                    onPressed: () {
-                      if (context.canPop()) {
-                        context.pop();
-                      } else {
-                        context.go('/login');
-                      }
-                    },
-                  ),
-                ),
-              ),
 
-              // ── BOTTOM SECTION (White Card) ──
-              Expanded(
-                flex: 8,
-                child: Container(
+                  // ── BOTTOM SECTION (White Card) ──
+                  Expanded(
+                    flex: 8,
+                    child: Container(
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -363,8 +350,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ],
           ),
-        ),
+          // ── BACK BUTTON ──
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 8,
+            left: 8,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+              onPressed: () {
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  context.go('/login');
+                }
+              },
+            ),
+          ),
+        ],
       ),
-    );
+    ),
+  ),
+);
   }
 }
