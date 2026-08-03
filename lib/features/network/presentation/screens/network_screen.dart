@@ -111,8 +111,9 @@ class _NetworkContentState extends State<_NetworkContent> {
   List<DownlineUserModel> get _filteredUsers {
     return _users.where((u) {
       // Filter
-      if (_activeFilter == 'verified' && !u.hasAnyActivePlan) return false;
-      if (_activeFilter == 'unverified' && u.hasAnyActivePlan) return false;
+      final isVerified = u.subscriptionStatus == 'plan_320';
+      if (_activeFilter == 'verified' && !isVerified) return false;
+      if (_activeFilter == 'unverified' && isVerified) return false;
 
       // Search
       if (_searchQuery.isNotEmpty) {
@@ -128,18 +129,14 @@ class _NetworkContentState extends State<_NetworkContent> {
     }).toList();
   }
 
-  int get _totalTeamCount {
-    final t = widget.user.team;
-    return (t.level1 + t.level2 + t.level3 + t.level4 + t.level5 + 
-            t.level6 + t.level7 + t.level8 + t.level9 + t.level10).toInt();
-  }
+  int get _totalCount => _users.length;
 
   int get _verifiedCount {
-    final t = widget.user.team;
-    return (t.level1Business + t.level2Business + t.level3Business + 
-            t.level4Business + t.level5Business + t.level6Business + 
-            t.level7Business + t.level8Business + t.level9Business + 
-            t.level10Business).toInt();
+    return _users.where((u) => u.subscriptionStatus == 'plan_320').length;
+  }
+
+  int get _unverifiedCount {
+    return _users.where((u) => u.subscriptionStatus != 'plan_320').length;
   }
 
   @override
@@ -158,10 +155,10 @@ class _NetworkContentState extends State<_NetworkContent> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
               child: NetworkStatsRow(
-                total: _totalTeamCount,
+                total: _totalCount,
                 verified: _verifiedCount,
-                unverified: _totalTeamCount - _verifiedCount,
-                isLoading: false,
+                unverified: _unverifiedCount,
+                isLoading: _isLoading && _users.isEmpty,
               ),
             ),
           ),
@@ -470,7 +467,7 @@ class _DownlineUserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isVerified = user.hasAnyActivePlan;
+    final bool isVerified = user.subscriptionStatus == 'plan_320';
     
     return Container(
       margin: const EdgeInsets.only(bottom: 12),

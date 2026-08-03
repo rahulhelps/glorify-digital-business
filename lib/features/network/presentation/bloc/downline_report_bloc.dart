@@ -25,10 +25,10 @@ class DownlineReportBloc
       final users = await _networkRepository.getAllDownlines(event.referCode);
 
       final premiumCount = users
-          .where((u) => u.hasAnyActivePlan)
+          .where((u) => u.subscriptionStatus == 'plan_320')
           .length;
       final normalCount = users
-          .where((u) => !u.hasAnyActivePlan && !u.isPending)
+          .where((u) => u.subscriptionStatus != 'plan_320')
           .length;
 
       emit(

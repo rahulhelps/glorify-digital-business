@@ -673,101 +673,14 @@ import 'package:global_earn/shared/widgets/app_drawer.dart';
 // AppShell
 // ─────────────────────────────────────────────────────────────────────────────
 
-/// Persistent shell.
-///
-/// The header row + segmented pill tab bar both live inside ONE unified
-/// gradient card ([UnifiedTopHeader]). No Positioned/overlap tricks.
-///
-/// [AppBottomNavBar] and [FloatingTopNavBar] are preserved below but unused.
+/// Persistent shell with continuous gradient background, custom AppBar,
+/// TabBar navigation row, and the white curved screen container.
 class AppShell extends StatelessWidget {
   final Widget child;
 
   const AppShell({super.key, required this.child});
 
   static const _routes = ['/home', '/wallet', '/profile', '/network'];
-
-  int _indexFor(BuildContext context) {
-    final loc = GoRouterState.of(context).uri.toString();
-    final i = _routes.indexWhere((r) => loc.startsWith(r));
-    return i < 0 ? 0 : i;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final index = _indexFor(context);
-    return Scaffold(
-      // The gradient container in the Stack now extends behind the curved corners.
-      backgroundColor: Colors.transparent,
-      drawer: const AppDrawer(),
-      body: Stack(
-        children: [
-          // Bottom layer: header fills from top, provides the blue background
-          // that the white content overlaps against.
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: UnifiedTopHeader(
-              currentIndex: index,
-              onTap: (i) => context.go(_routes[i]),
-            ),
-          ),
-          // Top layer: white content body with curved top corners that
-          // overlap the blue header, creating the nested pocket look.
-          Column(
-            children: [
-              // Spacer that matches the header height minus the overlap amount.
-              // The curved white container will sit on top of the bottom
-              // portion of the header.
-              Builder(
-                builder: (context) {
-                  final topInset = MediaQuery.of(context).padding.top;
-                  // Header height with reduced 10px vertical gap above the pill
-                  // + 18px breathing gap before the white container.
-                  final overlapTop = topInset + 20 + 10 + 10 + 56 + 40 + 18.0;
-                  return SizedBox(height: overlapTop);
-                },
-              ),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(40),
-                    ),
-                  ),
-                  child: child,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// UnifiedTopHeader
-// ─────────────────────────────────────────────────────────────────────────────
-
-/// One continuous S-curve gradient card that contains:
-///   1. Header row (hamburger → title → notification)
-///   2. Inset white pill segmented tab bar (4 tabs)
-///
-/// The pill has horizontal margins so the blue card edge is visible on both
-/// sides — matching the reference layout.
-class UnifiedTopHeader extends StatelessWidget {
-  final int currentIndex;
-  final ValueChanged<int> onTap;
-
-  const UnifiedTopHeader({
-    super.key,
-    required this.currentIndex,
-    required this.onTap,
-  });
 
   static const _tabs = [
     (Icons.home_outlined, Icons.home, 'ড্যাশবোর্ড'),
@@ -780,40 +693,52 @@ class UnifiedTopHeader extends StatelessWidget {
     (Icons.group_outlined, Icons.group, 'নেটওয়ার্ক'),
   ];
 
+  int _indexFor(BuildContext context) {
+    final loc = GoRouterState.of(context).uri.toString();
+    final i = _routes.indexWhere((r) => loc.startsWith(r));
+    return i < 0 ? 0 : i;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final index = _indexFor(context);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
-    final topInset = MediaQuery.of(context).padding.top;
-    // Header total height with refined 15px gap above the pill
-    // +100 extra height to ensure the gradient extends seamlessly behind the white curved container.
-    final totalHeight = topInset + 56 + 15 + 56 + 40 + 100.0;
-
-    return Container(
-        height: totalHeight,
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      drawer: const AppDrawer(),
+      body: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
+        height: double.infinity,
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [AppColors.primary, AppColors.primaryDark],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            begin: Alignment.topRight,
+            end: Alignment.topLeft,
+            colors: [AppColors.cyan, AppColors.coral],
           ),
         ),
         child: SafeArea(
           bottom: false,
           child: Column(
             children: [
+              // 1. Custom AppBar Row (Menu Icon, Title, Notification)
               AppBar(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 primary: false,
-                leading: IconButton(
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                  icon: const Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                    size: 26,
-                  ),
+                leading: Builder(
+                  builder: (BuildContext context) {
+                    return IconButton(
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      icon: const Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: 26,
+                      ),
+                    );
+                  },
                 ),
                 centerTitle: true,
                 title: Text(
@@ -858,31 +783,49 @@ class UnifiedTopHeader extends StatelessWidget {
                   const SizedBox(width: 8),
                 ],
               ),
+
+              // 2. Vertical space between AppBar and TabBar icons
               const SizedBox(height: 15),
+
+              // 3. TabBar Navigation Icons Row
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: _PillTabBar(
-                  currentIndex: currentIndex,
+                  currentIndex: index,
                   tabs: _tabs,
-                  onTap: onTap,
+                  onTap: (i) => context.go(_routes[i]),
+                ),
+              ),
+
+              // 4. Vertical space between TabBar icons and white curved container
+              const SizedBox(height: 15),
+
+              // 5. Main white container with curved top borders holding the screen content
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(40),
+                    ),
+                  ),
+                  child: child,
                 ),
               ),
             ],
           ),
         ),
+      ),
     );
   }
 }
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 // _PillTabBar  (private helper)
 // ─────────────────────────────────────────────────────────────────────────────
 
-/// White pill container with 4 animated segmented tabs.
-///
-/// • Selected tab: [AppColors.primary] highlight pill, icon + label in white.
-/// • Unselected tabs: transparent, icon + label in [AppColors.textSecondary].
 class _PillTabBar extends StatelessWidget {
   final int currentIndex;
   final List<(IconData, IconData, String)> tabs;
@@ -897,7 +840,6 @@ class _PillTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: const BoxDecoration(
         color: Colors.transparent,
       ),
@@ -914,7 +856,7 @@ class _PillTabBar extends StatelessWidget {
               duration: const Duration(milliseconds: 220),
               curve: Curves.easeInOut,
               padding: const EdgeInsets.symmetric(
-                vertical: 8,
+                vertical: 4,
                 horizontal: 16,
               ),
               decoration: const BoxDecoration(

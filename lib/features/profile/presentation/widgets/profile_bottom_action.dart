@@ -37,7 +37,7 @@ class ProfileBottomAction extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSizes.radiusXl),
               gradient: const LinearGradient(
-                colors: [Color(0xFF00BCD4), Color(0xFF00ACC1)],
+                colors: [AppColors.primary, AppColors.primaryDark],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),

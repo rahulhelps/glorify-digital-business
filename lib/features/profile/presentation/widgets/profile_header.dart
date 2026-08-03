@@ -53,7 +53,7 @@ class ProfileHeader extends StatelessWidget {
         // Extra bottom padding so name+phone have breathing room
         padding: const EdgeInsets.only(bottom: 28),
         decoration: const BoxDecoration(
-          color: AppColors.primary,
+          color: Colors.white,
         ),
         child: SafeArea(
           bottom: false,
@@ -148,7 +148,7 @@ class ProfileHeader extends StatelessWidget {
                       style: GoogleFonts.manrope(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        color: Colors.black,
                         letterSpacing: -0.3,
                       ),
                       maxLines: 1,
@@ -173,7 +173,7 @@ class ProfileHeader extends StatelessWidget {
                 user.phone,
                 style: GoogleFonts.inter(
                   fontSize: 14,
-                  color: Colors.white70,
+                  color: Colors.black87,
                   letterSpacing: 0.2,
                 ),
               ),

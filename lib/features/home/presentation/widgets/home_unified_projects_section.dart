@@ -112,7 +112,7 @@ class HomeUnifiedProjectsSection extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16.0),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.blue.withOpacity(0.06),
+        color: Colors.deepOrange.withOpacity(0.02),
         borderRadius: BorderRadius.circular(20.0),
         boxShadow: const [
           BoxShadow(

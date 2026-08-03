@@ -28,15 +28,15 @@ class DownlineUserModel {
   /// True if user is on the ৳320 Full Premium plan.
   bool get hasAnyActivePlan {
     final s = subscriptionStatus.trim();
-    return s == 'plan_320' || s == '320';
+    return s == 'plan_320';
   }
 
   // ── Backward-compatibility shims ───────────────────────────────────
   /// Any active subscriber. Kept for existing callers.
-  bool get isPremium => hasAnyActivePlan;
-  bool get isVerified => hasAnyActivePlan;
+  bool get isPremium => subscriptionStatus.trim() == 'plan_320';
+  bool get isVerified => subscriptionStatus.trim() == 'plan_320';
   bool get isPending => subscriptionStatus.trim() == 'pending';
-  bool get isNormal  => !hasAnyActivePlan && !isPending;
+  bool get isNormal  => subscriptionStatus.trim() != 'plan_320';
 
   factory DownlineUserModel.fromFirestore(
     Map<String, dynamic> data,

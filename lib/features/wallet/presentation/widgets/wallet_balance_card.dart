@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:global_earn/core/constants/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:go_router/go_router.dart';
@@ -51,7 +52,7 @@ class _WalletBalanceCardState extends State<WalletBalanceCard> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
           gradient: const LinearGradient(
-            colors: [Color(0xFF0A2463), Color(0xFF1565C0), Color(0xFF1E88E5)],
+            colors: [Colors.orange, Colors.orange, Colors.deepOrange],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             stops: [0.0, 0.55, 1.0],

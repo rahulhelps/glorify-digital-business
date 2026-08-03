@@ -56,6 +56,8 @@ class _HomeIconButtonState extends State<HomeIconButton>
 
   @override
   Widget build(BuildContext context) {
+    final primaryBlue = Theme.of(context).primaryColor;
+
     return GestureDetector(
       onTap: widget.onTap,
       onTapDown: _onTapDown,
@@ -68,20 +70,16 @@ class _HomeIconButtonState extends State<HomeIconButton>
           child: child,
         ),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(15),
-            // border: Border.all(
-            //   color: Colors.grey.shade200,
-            //   width: 0.5,
-            // ),
+            borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.blue.withValues(alpha: 0.20),
-                blurRadius: 5,
-                spreadRadius: 1,
-                // offset: const Offset(0, 4),
+                color: Colors.deepOrange.withOpacity(0.05),
+                blurRadius: 10,
+                spreadRadius: 0,
+                offset: const Offset(0, 4),
               ),
             ],
           ),
@@ -93,37 +91,34 @@ class _HomeIconButtonState extends State<HomeIconButton>
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: Colors.blue.withValues(alpha: 0.10),
-                  borderRadius: BorderRadius.circular(13),
+                  color: Colors.deepOrange.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                child: Center(
-                  child: widget.icon is String
-                      ? Image.asset(
-                          widget.icon as String,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.contain,
-                        )
-                      : FaIcon(
-                          widget.icon as IconData,
-                          color: widget.gradientStart,
-                          size: 34,
-                        ),
-                ),
+                alignment: Alignment.center,
+                child: widget.icon is String
+                    ? Image.asset(
+                        widget.icon as String,
+                        width: 55,
+                        height: 55,
+                        fit: BoxFit.contain,
+                      )
+                    : FaIcon(
+                        widget.icon as IconData,
+                        color: widget.gradientStart,
+                        size: 30,
+                      ),
               ),
-              const SizedBox(height: 6),
-              Flexible(
-                child: Text(
-                  widget.label,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.hindSiliguri(
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xFF1E293B),
-                    height: 1.2,
-                  ),
+              const SizedBox(height: 8),
+              Text(
+                widget.label,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.hindSiliguri(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                  height: 1.2,
                 ),
               ),
             ],
