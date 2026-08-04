@@ -19,7 +19,7 @@ class SupportRepositoryImpl implements SupportRepository {
 
       if (!doc.exists) {
         return const SupportSettingsModel(
-          headerTitle: 'গোল্ডেন পাওয়ার সাপোর্ট সেন্টার',
+          headerTitle: 'Glorify Digital Business সাপোর্ট সেন্টার',
           headerSubtitle: '',
           agents: [],
         );
@@ -28,7 +28,7 @@ class SupportRepositoryImpl implements SupportRepository {
       final data = doc.data();
       if (data == null) {
         return const SupportSettingsModel(
-          headerTitle: 'গোল্ডেন পাওয়ার সাপোর্ট সেন্টার',
+          headerTitle: 'Glorify Digital Business সাপোর্ট সেন্টার',
           headerSubtitle: '',
           agents: [],
         );
@@ -68,7 +68,7 @@ class SupportRepositoryImpl implements SupportRepository {
       }
 
       return SupportSettingsModel(
-        headerTitle: data['header_title']?.toString() ?? 'গোল্ডেন পাওয়ার সাপোর্ট সেন্টার',
+        headerTitle: data['header_title']?.toString() ?? 'Glorify Digital Business সাপোর্ট সেন্টার',
         headerSubtitle: data['header_subtitle']?.toString() ?? '',
         agents: agents,
       );

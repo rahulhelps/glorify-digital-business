@@ -69,21 +69,7 @@ class _HomeIconButtonState extends State<HomeIconButton>
           scale: _scaleAnim.value,
           child: child,
         ),
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.deepOrange.withOpacity(0.05),
-                blurRadius: 10,
-                spreadRadius: 0,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Column(
+        child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -124,7 +110,23 @@ class _HomeIconButtonState extends State<HomeIconButton>
             ],
           ),
         ),
-      ),
     );
   }
 }
+
+
+// Container(
+// padding: const EdgeInsets.all(10),
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.circular(16),
+// boxShadow: [
+// BoxShadow(
+// color: Colors.deepOrange.withOpacity(0.05),
+// blurRadius: 10,
+// spreadRadius: 0,
+// offset: const Offset(0, 4),
+// ),
+// ],
+// ),
+// child:

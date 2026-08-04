@@ -156,7 +156,7 @@ class _SupportCenterScreenState extends State<SupportCenterScreen> {
     return Column(
       children: [
         _buildHeaderBanner(state.data.headerTitle, state.data.headerSubtitle),
-        const SocialSupportSection(),
+        // const SocialSupportSection(),
         Expanded(
           child: agents.isEmpty
               ? _buildEmptyState()

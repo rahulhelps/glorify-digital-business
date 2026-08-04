@@ -99,7 +99,7 @@ class _DriveOffersScreenState extends State<DriveOffersScreen> {
                       expandedHeight: 160,
                       pinned: true,
                       elevation: 0,
-                      backgroundColor: const Color(0xFF1E293B),
+                      backgroundColor: AppColors.primaryDark,
                       leading: IconButton(
                         icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 20),
                         onPressed: () => context.pop(),
@@ -113,7 +113,7 @@ class _DriveOffersScreenState extends State<DriveOffersScreen> {
                       flexibleSpace: FlexibleSpaceBar(
                         background: Container(
                           decoration: const BoxDecoration(
-                            color: AppColors.primary,
+                            gradient: LinearGradient( begin: AlignmentGeometry.topLeft, end: AlignmentGeometry.bottomLeft,colors: [AppColors.primary,AppColors.primaryDark]),
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(24),
                               bottomRight: Radius.circular(24),

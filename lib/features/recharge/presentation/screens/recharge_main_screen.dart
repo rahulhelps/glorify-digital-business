@@ -152,7 +152,7 @@ class _RechargeMainScreenState extends State<RechargeMainScreen>
                     expandedHeight: 180,
                     pinned: true,
                     elevation: 0,
-                    backgroundColor: const Color(0xFF1E293B),
+                    backgroundColor:  AppColors.primaryDark,
                     leading: IconButton(
                       icon: const Icon(Icons.arrow_back_ios_new_rounded,
                           color: Colors.white, size: 20),
@@ -160,7 +160,9 @@ class _RechargeMainScreenState extends State<RechargeMainScreen>
                     ),
                     flexibleSpace: FlexibleSpaceBar(
                       background: Container(
+
                         decoration: const BoxDecoration(
+                          gradient: LinearGradient( begin: AlignmentGeometry.topLeft, end: AlignmentGeometry.bottomLeft,colors: [AppColors.primary,AppColors.primaryDark]),
                           color: AppColors.primary, // Deep dark blue/navy
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(24),

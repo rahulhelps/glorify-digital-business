@@ -35,7 +35,7 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
     super.initState();
     amountController.addListener(_calculateTotal);
     limitController.addListener(_calculateTotal);
-    
+
     // Add listeners to update the bloc state on form change so that validation works if needed
     nameController.addListener(_onFormChanged);
     descController.addListener(_onFormChanged);
@@ -133,7 +133,9 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
             if (state is PostJobSuccess) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Job posted successfully and is pending approval'),
+                  content: Text(
+                    'Job posted successfully and is pending approval',
+                  ),
                   backgroundColor: AppColors.success,
                 ),
               );
@@ -149,7 +151,7 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
           },
           builder: (context, postJobState) {
             final isLoading = postJobState is PostJobLoading;
-            
+
             return BlocBuilder<UserBloc, UserState>(
               builder: (context, userState) {
                 double balance = 0.0;
@@ -165,19 +167,29 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                     // 2. Navigation Tabs
                     SliverToBoxAdapter(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 20,
+                        ),
                         child: Row(
                           children: [
                             Expanded(
                               child: Container(
-                                padding: const EdgeInsets.symmetric(vertical: 14),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: AppColors.primary, width: 1.5),
+                                  border: Border.all(
+                                    color: AppColors.primary,
+                                    width: 1.5,
+                                  ),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppColors.primary.withValues(alpha: 0.1),
+                                      color: AppColors.primary.withValues(
+                                        alpha: 0.1,
+                                      ),
                                       blurRadius: 8,
                                       offset: const Offset(0, 4),
                                     ),
@@ -186,7 +198,11 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(Icons.add_circle_outline, color: AppColors.primary, size: 18),
+                                    const Icon(
+                                      Icons.add_circle_outline,
+                                      color: AppColors.primary,
+                                      size: 18,
+                                    ),
                                     const SizedBox(width: 8),
                                     Text(
                                       'নতুন জব তৈরি করুন',
@@ -205,16 +221,24 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                               child: GestureDetector(
                                 onTap: () => context.push('/home/job-approval'),
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 14),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade100,
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: Colors.grey.shade300),
+                                    border: Border.all(
+                                      color: Colors.grey.shade300,
+                                    ),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.history, color: Colors.grey.shade600, size: 18),
+                                      Icon(
+                                        Icons.history,
+                                        color: Colors.grey.shade600,
+                                        size: 18,
+                                      ),
                                       const SizedBox(width: 8),
                                       Text(
                                         'আমার পোস্ট করা জব',
@@ -237,7 +261,10 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                     // 3. Form Body
                     SliverToBoxAdapter(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
                         child: Container(
                           padding: const EdgeInsets.all(24),
                           decoration: BoxDecoration(
@@ -256,54 +283,73 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _buildSectionTitle('জবের শিরোনাম (Job Title) *'),
+                                _buildSectionTitle(
+                                  'জবের শিরোনাম (Job Title) *',
+                                ),
                                 _buildTextField(
                                   controller: nameController,
                                   hint: 'যেমন: ইউটিউব চ্যানেল সাবস্ক্রাইব',
                                   enabled: !isLoading,
-                                  validator: (v) => v!.isEmpty ? 'শিরোনাম আবশ্যক' : null,
+                                  validator: (v) =>
+                                      v!.isEmpty ? 'শিরোনাম আবশ্যক' : null,
                                 ),
                                 const SizedBox(height: 20),
 
-                                _buildSectionTitle('কাজের বিবরণ ও নিয়মাবলি (Description) *'),
+                                _buildSectionTitle(
+                                  'কাজের বিবরণ ও নিয়মাবলি (Description) *',
+                                ),
                                 _buildTextField(
                                   controller: descController,
-                                  hint: 'ওয়ার্কারকে কী কী করতে হবে তা বিস্তারিত লিখুন...',
+                                  hint:
+                                      'ওয়ার্কারকে কী কী করতে হবে তা বিস্তারিত লিখুন...',
                                   maxLines: 4,
                                   enabled: !isLoading,
-                                  validator: (v) => v!.isEmpty ? 'বিবরণ আবশ্যক' : null,
+                                  validator: (v) =>
+                                      v!.isEmpty ? 'বিবরণ আবশ্যক' : null,
                                 ),
                                 const SizedBox(height: 20),
 
-                                _buildSectionTitle('প্রুফ বা প্রমাণের বর্ণনা (Required Proof) *'),
+                                _buildSectionTitle(
+                                  'প্রুফ বা প্রমাণের বর্ণনা (Required Proof) *',
+                                ),
                                 _buildTextField(
                                   controller: linkController,
                                   hint: 'এইখানে কাজের লিংক দিন',
                                   maxLines: 2,
                                   enabled: !isLoading,
-                                  validator: (v) => v!.isEmpty ? 'প্রুফ আবশ্যক' : null,
+                                  validator: (v) =>
+                                      v!.isEmpty ? 'প্রুফ আবশ্যক' : null,
                                 ),
                                 const SizedBox(height: 24),
 
                                 // Feature Image Upload (NEW)
-                                _buildSectionTitle('Feature Image (1টি ছবি নির্বাচন করুন) *'),
+                                _buildSectionTitle(
+                                  'Feature Image (1টি ছবি নির্বাচন করুন) *',
+                                ),
                                 const SizedBox(height: 8),
-                                _buildImagePicker(postJobState.image, isLoading),
+                                _buildImagePicker(
+                                  postJobState.image,
+                                  isLoading,
+                                ),
                                 const SizedBox(height: 24),
 
                                 Row(
                                   children: [
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          _buildSectionTitle('ওয়ার্কার সংখ্যা *'),
+                                          _buildSectionTitle(
+                                            'ওয়ার্কার সংখ্যা *',
+                                          ),
                                           _buildTextField(
                                             controller: limitController,
                                             hint: 'জন',
                                             keyboardType: TextInputType.number,
                                             enabled: !isLoading,
-                                            validator: (v) => v!.isEmpty ? 'আবশ্যক' : null,
+                                            validator: (v) =>
+                                                v!.isEmpty ? 'আবশ্যক' : null,
                                           ),
                                         ],
                                       ),
@@ -311,15 +357,22 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          _buildSectionTitle('ওয়ার্কার প্রতি পে *'),
+                                          _buildSectionTitle(
+                                            'ওয়ার্কার প্রতি পে *',
+                                          ),
                                           _buildTextField(
                                             controller: amountController,
                                             hint: '৳',
-                                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                            keyboardType:
+                                                const TextInputType.numberWithOptions(
+                                                  decimal: true,
+                                                ),
                                             enabled: !isLoading,
-                                            validator: (v) => v!.isEmpty ? 'আবশ্যক' : null,
+                                            validator: (v) =>
+                                                v!.isEmpty ? 'আবশ্যক' : null,
                                           ),
                                         ],
                                       ),
@@ -337,7 +390,9 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                                   width: double.infinity,
                                   height: 56,
                                   child: ElevatedButton(
-                                    onPressed: isLoading ? null : () => _submitJob(balance),
+                                    onPressed: isLoading
+                                        ? null
+                                        : () => _submitJob(balance),
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: AppColors.primary,
                                       shape: RoundedRectangleBorder(
@@ -349,7 +404,10 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                                         ? const SizedBox(
                                             width: 24,
                                             height: 24,
-                                            child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                              strokeWidth: 2.5,
+                                            ),
                                           )
                                         : Text(
                                             'জব পোস্ট করুন',
@@ -385,7 +443,11 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
       elevation: 0,
       backgroundColor: AppColors.primary,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 20),
+        icon: const Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: Colors.white,
+          size: 20,
+        ),
         onPressed: () => context.pop(),
       ),
       actions: [
@@ -397,10 +459,15 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
           decoration: BoxDecoration(
+            // gradient: LinearGradient(
+            //   colors: [AppColors.primary, AppColors.cyan],
+            //   begin: Alignment.topLeft,
+            //   end: Alignment.bottomRight,
+            // ),
             gradient: LinearGradient(
-              colors: [AppColors.primary, AppColors.cyan],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: AlignmentGeometry.topLeft,
+              end: AlignmentGeometry.bottomLeft,
+              colors: [AppColors.primary, AppColors.primaryDark],
             ),
           ),
           child: SafeArea(
@@ -411,7 +478,11 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.work_outline_rounded, color: Colors.amber, size: 24),
+                      const Icon(
+                        Icons.work_outline_rounded,
+                        color: Colors.amber,
+                        size: 24,
+                      ),
                       const SizedBox(width: 8),
                       Text(
                         'Micro Job Post',
@@ -435,11 +506,16 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                   ),
                   const Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.black.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.1),
+                      ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -450,7 +526,11 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                             color: Colors.amber.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: const Icon(Icons.account_balance_wallet_rounded, color: Colors.amber, size: 18),
+                          child: const Icon(
+                            Icons.account_balance_wallet_rounded,
+                            color: Colors.amber,
+                            size: 18,
+                          ),
                         ),
                         const SizedBox(width: 12),
                         Column(
@@ -475,7 +555,11 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                                   borderRadius: BorderRadius.circular(12),
                                   child: const Padding(
                                     padding: EdgeInsets.all(4.0),
-                                    child: Icon(Icons.refresh_rounded, color: Colors.white70, size: 14),
+                                    child: Icon(
+                                      Icons.refresh_rounded,
+                                      color: Colors.white70,
+                                      size: 14,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -484,7 +568,8 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                               builder: (context, userState) {
                                 double currentBalance = 0.0;
                                 if (userState is UserLoaded) {
-                                  currentBalance = userState.user.withdrawableBalance;
+                                  currentBalance =
+                                      userState.user.withdrawableBalance;
                                 }
                                 return Text(
                                   '৳${currentBalance.toStringAsFixed(2)} BDT',
@@ -541,10 +626,16 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
       style: GoogleFonts.manrope(fontSize: 14, color: Colors.black87),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: GoogleFonts.manrope(color: Colors.grey.shade400, fontSize: 13),
+        hintStyle: GoogleFonts.manrope(
+          color: Colors.grey.shade400,
+          fontSize: 13,
+        ),
         filled: true,
         fillColor: Colors.grey.shade50,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.grey.shade300),
@@ -572,17 +663,18 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
         height: 140,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: image == null ? AppColors.primary.withValues(alpha: 0.05) : Colors.black12,
+          color: image == null
+              ? AppColors.primary.withValues(alpha: 0.05)
+              : Colors.black12,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: image == null ? AppColors.primary.withValues(alpha: 0.3) : Colors.transparent,
+            color: image == null
+                ? AppColors.primary.withValues(alpha: 0.3)
+                : Colors.transparent,
             style: image == null ? BorderStyle.solid : BorderStyle.none,
           ),
           image: image != null
-              ? DecorationImage(
-                  image: FileImage(image),
-                  fit: BoxFit.cover,
-                )
+              ? DecorationImage(image: FileImage(image), fit: BoxFit.cover)
               : null,
         ),
         child: image == null
@@ -595,7 +687,11 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                       color: AppColors.primary.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.add_photo_alternate_outlined, color: AppColors.primary, size: 28),
+                    child: const Icon(
+                      Icons.add_photo_alternate_outlined,
+                      color: AppColors.primary,
+                      size: 28,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   Text(
@@ -616,14 +712,20 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
                     child: GestureDetector(
                       onTap: isLoading
                           ? null
-                          : () => context.read<PostJobBloc>().add(const PostJobImagePicked(null)),
+                          : () => context.read<PostJobBloc>().add(
+                              const PostJobImagePicked(null),
+                            ),
                       child: Container(
                         padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
                           color: Colors.black54,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Icon(Icons.close, color: Colors.white, size: 16),
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 16,
+                        ),
                       ),
                     ),
                   ),
@@ -635,7 +737,7 @@ class _PostMicroJobScreenState extends State<PostMicroJobScreen> {
 
   Widget _buildBudgetCalculationBox(double userBalance) {
     final bool isSufficient = _totalCost <= userBalance;
-    
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(

@@ -40,7 +40,7 @@ class AppDrawer extends StatelessWidget {
                   _GradientDivider(),
                   DrawerMenuItem(
                     icon: Icons.add_card,
-                    label: 'ব্যালেন্স ডিপোজিট',
+                    label: 'ব্যালেন্স যোগ',
                     onTap: () {
                       Navigator.pop(context);
                       context.push('/wallet/add-balance');
@@ -247,7 +247,7 @@ class AppDrawer extends StatelessWidget {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF0F3D88), Color(0xFF097CCB)],
+                    colors: [AppColors.primaryDark, AppColors.primary],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -340,9 +340,12 @@ class AppDrawer extends StatelessWidget {
                       value: user.referCode,
                       context: context,
                     ),
-                    const SizedBox(height: AppSizes.spacingSm),
-                    _buildSubscriptionBadge(user.subscriptionStatus),
-                    const SizedBox(height: AppSizes.spacingSm),
+                    const SizedBox(height: AppSizes.spacingLg),
+                    if (user.subscriptionStatus.trim() == 'plan_320') ...[
+                      _buildSubscriptionBadge(user.subscriptionStatus),
+                      const SizedBox(height: AppSizes.spacingSm),
+                    ],
+
                     Text(
                       'Join date: $formattedDate',
                       style: GoogleFonts.manrope(
@@ -390,56 +393,29 @@ class AppDrawer extends StatelessWidget {
   }
 
   Widget _buildSubscriptionBadge(String status) {
-    final s = status.trim();
-    // Determine tier using same logic as model getters
-    final bool isVerified = s == 'plan_320' || s == '320';
-    final bool isPending = s == 'pending';
-
-    // Resolved display values
-    final Color borderColor;
-    final Color bgColor;
-    final Color textColor;
-    final IconData icon;
-    final String label;
-
-    if (isVerified) {
-      borderColor = AppColors.gold;
-      bgColor = AppColors.gold.withValues(alpha: 0.2);
-      textColor = AppColors.gold;
-      icon = Icons.workspace_premium;
-      label = '⭐ প্রিমিয়াম অ্যাকাউন্ট';
-    } else if (isPending) {
-      borderColor = AppColors.coral;
-      bgColor = AppColors.coral.withValues(alpha: 0.2);
-      textColor = AppColors.coral;
-      icon = Icons.history_toggle_off;
-      label = '⏳ পর্যালোচনাধীন';
-    } else {
-      borderColor = Colors.white24;
-      bgColor = Colors.white10;
-      textColor = Colors.white70;
-      icon = Icons.person_outline;
-      label = 'সাধারণ একাউন্ট';
+    final bool isVerified = status.trim() == 'plan_320';
+    if (!isVerified) {
+      return const SizedBox.shrink();
     }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
-        color: bgColor,
+        color: AppColors.gold.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(AppSizes.radiusFull),
-        border: Border.all(color: borderColor),
+        border: Border.all(color: AppColors.gold),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: textColor),
+          const Icon(Icons.workspace_premium, size: 14, color: AppColors.gold),
           const SizedBox(width: 6),
           Text(
-            label,
+            'ভেরিফাইড একাউন্ট',
             style: GoogleFonts.manrope(
               fontSize: 12,
               fontWeight: FontWeight.bold,
-              color: textColor,
+              color: AppColors.gold,
             ),
           ),
         ],

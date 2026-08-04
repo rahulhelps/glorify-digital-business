@@ -63,25 +63,6 @@ class _VerificationPlanScreenContentState extends State<_VerificationPlanScreenC
         .replaceAll('9', '৯');
   }
 
-  List<String> _buildReferralList(Map<String, dynamic> referral) {
-    final gen1 = _toBn(referral['gen1']);
-    final gen2 = _toBn(referral['gen2']);
-    final gen3 = _toBn(referral['gen3']);
-    final gen4 = _toBn(referral['gen4']);
-    final gen5 = _toBn(referral['gen5']);
-    final gen6 = _toBn(referral['gen6']);
-    final gen7 = _toBn(referral['gen7']);
-    final gen8 = _toBn(referral['gen8']);
-    final gen9 = _toBn(referral['gen9']);
-    final gen10 = _toBn(referral['gen10']);
-
-    return [
-      '১ম জেনারেশন: ৳$gen1',
-      '২য় জেনারেশন: ৳$gen2 | ৩য় জেনারেশন: ৳$gen3 | ৪র্থ জেনারেশন: ৳$gen4 | ৫ম জেনারেশন: ৳$gen5',
-      '৬ষ্ঠ জেনারেশন: ৳$gen6 | ৭ম জেনারেশন: ৳$gen7 | ৮ম জেনারেশন: ৳$gen8 | ৯ম জেনারেশন: ৳$gen9 | ১০ম জেনারেশন: ৳$gen10',
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SubscriptionBloc, SubscriptionState>(
@@ -135,11 +116,6 @@ class _VerificationPlanScreenContentState extends State<_VerificationPlanScreenC
             final premiumPriceRaw = plan320Data['price']?.toString() ?? '320';
             final premiumPriceBn = _toBn(premiumPriceRaw);
 
-            final premiumReferral = plan320Data['referral'] as Map<String, dynamic>? ?? {
-              'gen1': 100, 'gen2': 45, 'gen3': 25, 'gen4': 15, 'gen5': 10,
-              'gen6': 5, 'gen7': 4, 'gen8': 3, 'gen9': 2, 'gen10': 2
-            };
-
             return Stack(
               children: [
                 Scaffold(
@@ -181,7 +157,7 @@ class _VerificationPlanScreenContentState extends State<_VerificationPlanScreenC
                           color: background,
                           child: SingleChildScrollView(
                             padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
-                            child: _buildPlanContent(premiumPriceBn, premiumReferral),
+                            child: _buildPlanContent(premiumPriceBn),
                           ),
                         ),
                       ),
@@ -223,9 +199,7 @@ class _VerificationPlanScreenContentState extends State<_VerificationPlanScreenC
     );
   }
 
-  Widget _buildPlanContent(String premiumPriceBn, Map<String, dynamic> referral) {
-
-
+  Widget _buildPlanContent(String premiumPriceBn) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -344,102 +318,45 @@ class _VerificationPlanScreenContentState extends State<_VerificationPlanScreenC
                 Icon(Icons.lock_open_rounded, color: primaryBlue, size: 28),
                 const SizedBox(width: 14),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'সকল প্রজেক্ট আনলক হবে',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: primaryBlue,
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'সুবিধা : ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: primaryBlue,
+                            fontSize: 14,
+                            height: 1.5,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        'একাউন্ট ভেরিফাই করলে অ্যাপের সকল প্রজেক্ট, বোনাস এবং '
-                        'রিওয়ার্ডস সম্পূর্ণভাবে আনলক হয়ে যাবে — কোনো বাড়তি '
-                        'শর্ত ছাড়াই।',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black87,
-                          height: 1.5,
+                        TextSpan(
+                          text:
+                              'এপস এর সকল রানিং প্রজেক্টের এর সার্ভিস, ঘরে বসে ইনকামের সম্পূর্ণ এক্সেস। \n\nসাথে গ্লরিফাইয়ের সকল গাইডলাইন ও সুবিধা সমূহ অন্তর্ভুক্ত রয়েছে ।',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey[800],
+                            fontSize: 14,
+                            height: 1.5,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
 
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 24),
-            child: Divider(height: 1, thickness: 1, color: Color(0xFFD6E4F0)),
-          ),
-
-          _buildSectionTitle('জেনারেশন রেফারেল কমিশন'),
-          const SizedBox(height: 16),
-          _buildPremiumCommissionList(_buildReferralList(referral)),
-
           const SizedBox(height: 32),
 
           _buildActionButton(
-            text: 'স্বয়ংক্রিয়ভাবে পেমেন্ট করুন (৳$premiumPriceBn)',
+            text: 'পেমেন্ট করুন',
             onPressed: _onAutoPayment,
             isPremium: true,
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildSectionTitle(String title) {
-    return Text(
-      title,
-      style: TextStyle(
-        fontSize: 17,
-        fontWeight: FontWeight.w800,
-        color: primaryBlue,
-        letterSpacing: 0.3,
-      ),
-    );
-  }
-
-
-  Widget _buildPremiumCommissionList(List<String> items) {
-    return Column(
-      children: items.map((item) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 14.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 2),
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: primaryBlue.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(Icons.check, color: primaryBlue, size: 14),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  item,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF334155),
-                    fontWeight: FontWeight.w500,
-                    height: 1.5,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      }).toList(),
     );
   }
 

@@ -96,7 +96,7 @@ class HomeUnifiedProjectsSection extends StatelessWidget {
     ),
     (
       'assets/icons/rank.png', // 15
-      'র্যাঙ্ক',
+      'র‍্যাংক',
       Color(0xFFD97706), Color(0xFFFFA500), Color(0xFFFEF3C7),
     ),
     (
@@ -112,7 +112,8 @@ class HomeUnifiedProjectsSection extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16.0),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.deepOrange.withOpacity(0.02),
+        // color: Colors.deepOrange.withOpacity(0.02),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
         boxShadow: const [
           BoxShadow(

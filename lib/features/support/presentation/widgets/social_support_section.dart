@@ -15,7 +15,7 @@ class SocialSupportSection extends StatelessWidget {
       Color(0xFF1877F2), // icon color
       Color(0xFF0C5DC7), // gradientEnd (unused visually, kept for compat)
       Color(0xFFDCEBFF), // pastelBg — soft blue
-      'https://facebook.com/groups/2562406014093895/',
+      '',
     ),
     (
       'assets/icons/apple.png',
@@ -23,7 +23,7 @@ class SocialSupportSection extends StatelessWidget {
       Color(0xFF25D366),
       Color(0xFF128C7E),
       Color(0xFFDCF5E8), // pastelBg — soft green
-      'https://chat.whatsapp.com/L0eNMtylBcLFiJdgt2IiM9',
+      '',
     ),
     (
       'assets/icons/telegram.png',
@@ -31,7 +31,7 @@ class SocialSupportSection extends StatelessWidget {
       Color(0xFF2AABEE),
       Color(0xFF229ED9),
       Color(0xFFD6F0FF), // pastelBg — sky blue
-      'https://t.me/+26bWL2IBT-I5ODU1',
+      '',
     ),
     (
       'assets/icons/youtube.png',
@@ -39,7 +39,7 @@ class SocialSupportSection extends StatelessWidget {
       Color(0xFFFF0000),
       Color(0xFFCC0000),
       Color(0xFFFFE0E0), // pastelBg — soft red
-      'https://youtube.com/@goldenpowerofficial?si=8mVJZ3qjs2Q11--I',
+      '',
     ),
   ];
 

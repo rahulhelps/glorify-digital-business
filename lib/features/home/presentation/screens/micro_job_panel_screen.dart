@@ -45,7 +45,8 @@ class _MicroJobPanelScreenState extends State<MicroJobPanelScreen> {
             Container(
               padding: const EdgeInsets.fromLTRB(20, 50, 20, 24),
               decoration: const BoxDecoration(
-                color: AppColors.primary,
+                gradient: LinearGradient( begin: AlignmentGeometry.topLeft, end: AlignmentGeometry.bottomLeft,colors: [AppColors.primary,AppColors.primaryDark]),
+                // color: AppColors.primary,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(24),
                   bottomRight: Radius.circular(24),

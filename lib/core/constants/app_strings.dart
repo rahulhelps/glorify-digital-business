@@ -57,7 +57,7 @@ abstract class AppStrings {
   // Premium card
   static const premiumPrice = '৳ ২৫০';
   static const premiumTitle = 'প্রিমিয়াম ফিচার আনলক করুন';
-  static const premiumCta = 'গোল্ডেন পাওয়ার প্রিমিয়াম নিন >>';
+  static const premiumCta = 'Glorify Digital Business প্রিমিয়াম নিন >>';
 
   // Social row
   static const socialFacebook = 'Facebook';
